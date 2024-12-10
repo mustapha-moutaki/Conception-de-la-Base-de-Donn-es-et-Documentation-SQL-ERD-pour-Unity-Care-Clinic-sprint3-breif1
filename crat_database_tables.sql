@@ -12,7 +12,7 @@ CREATE TABLE patients(
     gender ENUM('Male', 'Female'),
     date_of_birth DATE,
     phone_number VARCHAR(15),
-    email VARCHAR(100),
+    email VARCHAR(100) unique,
     address VARCHAR(255),
     
     PRIMARY KEY(patient_id)
@@ -47,9 +47,10 @@ CREATE TABLE doctors(
     last_name VARCHAR(50) NOT NULL,
     specialization VARCHAR(15),
     phone_number VARCHAR(15),
-    email VARCHAR(100),
+    email VARCHAR(100) unique,
     department_id INT NOT NULL,
     
+
     PRIMARY KEY(doctor_id),
     
     FOREIGN KEY(department_id) REFERENCES departments(department_id)
@@ -90,6 +91,7 @@ CREATE TABLE admissions(
     
     FOREIGN KEY(patient_id) REFERENCES patients(patient_id),
     FOREIGN KEY(room_id) REFERENCES rooms(room_id)
+
 );
 -- Create staff table
 CREATE TABLE staff(

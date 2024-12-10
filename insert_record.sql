@@ -182,9 +182,9 @@ FROM doctors
 GROUP BY department_id;
 
 --12. AVG : Âge moyen des patients Calculez l'âge moyen des patients.
-SELECT AVG(YEAR(CURDATE()) - YEAR(date_of_birth) - 
-           (DATE_FORMAT(CURDATE(), '%m%d') < DATE_FORMAT(date_of_birth, '%m%d'))) AS average_age
-FROM patients;
+SELECT AVG(TIMESTAMPDIFF(YEAR, date_of_birth, CURDATE())) AS average_age
+ FROM Patients;
+
 
 --13. MAX : Dernier rendez-vous Trouvez la date et l'heure du dernier rendez-vous enregistré.
 SELECT MAX(appointment_date) AS the_last_appointment
@@ -204,10 +204,15 @@ SELECT * FROM patients
 WHERE email ='';
 
 --16. Jointure : Liste des rendez-vous avec noms des médecins et patients Récupérez les rendez-vous avec les noms des médecins et des patients.
-SELECT appointment_date, first_name, last_name
-FROM appointments
-Join doctors
-on appointments.first_name = doctors.first_name
+-- SELECT appointment_date, first_name, last_name
+-- FROM appointments
+-- Join doctors
+-- on appointments.first_name = doctors.first_name
+SELECT Appointments.appointment_date, Patients.name AS patient_name, Doctors.name AS doctor_name
+FROM Appointments
+JOIN Patients ON Appointments.patient_id = Patients.id
+JOIN Doctors ON Appointments.doctor_id = Doctors.id;
+
 --17. DELETE : Supprimer les rendez-vous avant 2024 Supprimez tous les rendez-vous programmés avant 2024.
  DELETE FROM appointments
  WHERE appointment_date < '2024-01-01';
