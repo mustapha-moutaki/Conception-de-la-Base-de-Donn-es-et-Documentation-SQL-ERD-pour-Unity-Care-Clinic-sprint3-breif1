@@ -86,11 +86,12 @@ CREATE TABLE admissions(
     room_id INT NOT NULL,
     admission_date DATE,
     discharge_date DATE,
-    
+    doctor_id int,
     PRIMARY KEY(admission_id),
     
     FOREIGN KEY(patient_id) REFERENCES patients(patient_id),
     FOREIGN KEY(room_id) REFERENCES rooms(room_id)
+
 
 );
 -- Create staff table

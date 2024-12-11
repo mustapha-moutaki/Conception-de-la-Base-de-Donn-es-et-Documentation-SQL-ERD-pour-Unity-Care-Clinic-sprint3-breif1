@@ -236,16 +236,47 @@ where discharge_date < CURDATE();--the date in this momment
 
 
 --Bonus 1 : Patients et leurs médecins traitants Récupérez les noms des patients et les noms de leurs médecins traitants à partir des tables patients, admissions, et doctors.
-SELECT CONCAT(first_name, ' ',last_name) AS patient_name,
-        CONCAT(doctors.first_name, ' ',doctors.last_name) AS doctor_name,
-        admissions.admission_id AS admission
-FROM patients
-JOIN admissions 
-ON patients.patient_id = admissions.patient_id
-JOIN doctors 
-ON patients.doctor_id = doctors.doctor_id;
+SELECT CONCAT(patients.first_name, ' ', patients.last_name) AS patient_full_name,
+    admissions.admission_id AS admission,
+    CONCAT(doctors.first_name, ' ', doctors.last_name) AS doctor_full_name
+FROM 
+    patients
+JOIN admissions ON patients.patient_id = admissions.patient_id
+JOIN appointments ON patients.patient_id =appointments.patient_id
+JOIN doctors ON appointments.doctor_id = doctors.doctor_id;
 
 --Bonus 2 : Liste des rendez-vous par département Récupérez la liste des rendez-vous avec les départements associés.
+SELECT appointments.appointment_date, departments.department_name
+FROM appointments
+JOIN doctors ON appointments.doctor_id = Doctors.doctor_id
+Join departments on departments.department_id = Doctors.department_id
+
+--Bonus 3 : Médicaments prescrits par médecin Listez les médicaments prescrits par chaque médecin.
+SELECT 
+    CONCAT(doctors.first_name, ' ', doctors.last_name) AS doctor_full_name,
+    medications.medication_name
+FROM 
+    prescriptions
+JOIN 
+    doctors ON prescriptions.doctor_id = doctors.doctor_id
+JOIN 
+    medications ON prescriptions.medication_id = medications.medication_id;
+
+
+
+
+
+
+
+JOIN doctors ON appointments.doctor_id = doctors.doctor_id;
+
+
+
+
+
+
+
+
 SELECT Appointments.appointment_date, Departments.name AS department_name, 
        Doctors.name AS doctor_name, Patients.name AS patient_name
 FROM Appointments
