@@ -81,7 +81,6 @@ Voici des exercices pratiques pour tester et interagir avec la base de données 
    - Crypter les données sensibles telles que les emails et mots de passe.
    - Restreindre l'accès à la base de données en utilisant des rôles d'utilisateur et des permissions adaptées.
 
-## User Stories
 
 ### En tant que responsable de la base de données hospitalière :
 

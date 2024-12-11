@@ -49,7 +49,7 @@ VALUES
      (104, 'General', 1),
       (105, 'Private', 1),
        (106, 'ICU', 1),
-        (107, 'General', 1)
+        (107, 'General', 1);
 
 
 --insertion les admissions
@@ -231,7 +231,7 @@ HAVING COUNT(*) >= 2;
 --20. Créer une vue : Admissions actives Créez une vue listant toutes les admissions en cours.
 CREATE VIEW active_admissions AS
 SELECT * FROM admissions
-where discharge_date < CURDATE();--the date in this momment
+where discharge_date IS NULL;
 
 
 
@@ -252,30 +252,6 @@ JOIN doctors ON appointments.doctor_id = Doctors.doctor_id
 Join departments on departments.department_id = Doctors.department_id
 
 --Bonus 3 : Médicaments prescrits par médecin Listez les médicaments prescrits par chaque médecin.
-SELECT 
-    CONCAT(doctors.first_name, ' ', doctors.last_name) AS doctor_full_name,
-    medications.medication_name
-FROM 
-    prescriptions
-JOIN 
-    doctors ON prescriptions.doctor_id = doctors.doctor_id
-JOIN 
-    medications ON prescriptions.medication_id = medications.medication_id;
-
-
-
-
-
-
-
-JOIN doctors ON appointments.doctor_id = doctors.doctor_id;
-
-
-
-
-
-
-
 
 SELECT Appointments.appointment_date, Departments.name AS department_name, 
        Doctors.name AS doctor_name, Patients.name AS patient_name
@@ -289,6 +265,5 @@ JOIN Patients ON Appointments.patient_id = Patients.id;
 SELECT patients.patient_name, admission.admission_id, doctors,doctor_name
 FROM patients
 Join admission ON patients.patient_id=admission.patient_id
-JOIN doctors ON doctors.doctor_id = 
 
---Bonus 5 : Statistiques des patients par département Comptez le nombre de patients associés à chaque département via leurs admissions.
+
